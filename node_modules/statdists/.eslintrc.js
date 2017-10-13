@@ -1,0 +1,13 @@
+module.exports = {
+    "extends": "google",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
+    "rules":{
+        "max-len": "warn",
+        "max-len/ignoreComment": "off",
+        "no-invalid-this": "off",
+        "new-cap": "off"
+    }
+};

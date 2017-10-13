@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>MCMC up in this bish</title>
+<style>
+  #wrapper {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  body {
+    font-family: optima;
+  }
+  h1 {
+    margin-left: 15px;
+  }
+  svg text {
+    cursor: default;
+    user-select: none;
+  }
+</style>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <div id = "wrapper">
+    <h1>Lets MCMC some stuff</h1>
+    <p> First we start by generating some data with a known distribution </p>
+    <div id = 'data_histogram'></div>
+    <p> This is our histogram after sampling </p>
+    <div id = 'sample_trace'></div>
+    <div id = 'sample_histogram'></div>
+    <div id = 'trace_viz'></div>
+  </div>
+  <script src="bundle.js"></script>
+</body>

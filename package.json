@@ -1,0 +1,30 @@
+{
+  "name": "mcmcviz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify src/main.js -t [ babelify --presets [ env ]  --plugins [transform-object-rest-spread] ] --outfile bundle.js",
+    "serve": "budo src/main.js:bundle.js --live -- -t [ babelify --presets [ env ]  --plugins [transform-object-rest-spread] ]"
+  },
+  "author": "Nick Strayer <nick.strayer@gmail.com> (http://nickstrayer.me)",
+  "license": "MIT",
+  "dependencies": {
+    "d3-jetpack": "2.0.13",
+    "lodash": "4.17.4",
+    "slid3r": "0.0.3",
+    "statdists": "0.0.9"
+  },
+  "devDependencies": {
+    "babel-core": "6.26.0",
+    "babel-loader": "7.1.2",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-preset-env": "1.6.0",
+    "babelify": "7.3.0",
+    "browserify": "14.4.0",
+    "budo": "10.0.4",
+    "eslint": "4.8.0",
+    "eslint-config-google": "0.9.1",
+    "prettier-eslint": "8.2.0"
+  }
+}
