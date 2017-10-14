@@ -44862,7 +44862,7 @@ exports.default = function (_ref) {
   var n = 250; // total sample size
 
   var divWidth = document.getElementById(divId).offsetWidth;
-  var divHeight = divWidth / 1.5;
+  var divHeight = 450;
   // setup the viz
   var c = d3.conventions({
     parentSel: d3.select('#' + divId),

@@ -17,8 +17,8 @@ export default ({divId, onNewData, onNewPropWidth}) => {
   let n = 250; // total sample size
 
   const divWidth = document.getElementById(divId).offsetWidth;
-  const divHeight = divWidth / 1.5;
-  // setup the viz
+  const divHeight = 450;
+  // setup the vizc
   const c = d3.conventions({
     parentSel: d3.select(`#${divId}`),
     totalWidth: divWidth,

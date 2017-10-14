@@ -1,5 +1,5 @@
 const d3 = Object.assign({}, require('d3'), require('d3-jetpack'));
-import { margins, histColor, traceColor, numBins } from './plotDefaults';
+import { margins, histColor, outsideIntervalColor, insideIntervalColor, failedSamplesColor, traceColor, numBins } from './plotDefaults';
 import { sum, within } from 'statdists';
 // import slid3r from './slid3r/main';
 import credibleInterval from './credibleInterval';
@@ -15,7 +15,7 @@ export default ({
   paddingProp = 0.05
 }) => {
   const divWidth = document.getElementById(divId).offsetWidth;
-  const divHeight = divWidth / 1.5;
+  const divHeight = 600;
   const width = divWidth - margins.left - margins.right;
   const height = divHeight - margins.top - margins.bottom;
   const paddingHeight = paddingProp * height;
@@ -92,7 +92,7 @@ export default ({
       cx: d => x(d.proposed),
       cy: d => traceY(d.i),
       r: 5,
-      fill: 'orangered',
+      fill: failedSamplesColor,
       fillOpacity: 0.5
     });
 
@@ -135,7 +135,7 @@ export default ({
       height: d => histY(d.size) - histY(0),
       width: barWidth,
       fill: d =>
-        d.x0 > CiLowerBound && d.x1 < CiUpperBound ? traceColor : histColor
+        d.x0 > CiLowerBound && d.x1 < CiUpperBound ? insideIntervalColor : outsideIntervalColor
     });
 
   // draw credible interval
@@ -146,7 +146,7 @@ export default ({
     x2: trace.length > 50 ? x(CiLowerBound) : 0,
     y1: CiHeight,
     y2: CiHeight,
-    stroke: histColor,
+    stroke: insideIntervalColor,
     strokeWidth: '2px'
   });
 
