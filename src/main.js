@@ -2,8 +2,6 @@ import dataGenPlot from './dataGenPlot';
 import priorChoose from './priorChoose';
 import startMCMC from './startMCMC';
 import {dunif} from 'statdists';
-import makeBetaPdf from './makeBetaPdf';
-
 // Setup:
 // We generate some data following a binomial distribution with true prob of p_user
 // The user then sets their prior for what the probability of a success is using a beta
@@ -26,15 +24,42 @@ import makeBetaPdf from './makeBetaPdf';
 
 // initialize a holder for the interval that runs the simulation.
 
-let prior = makeBetaPdf(0.5, 0.25);
+// let prior = makeBetaPdf(0.5, 0.25);
+let prior = dunif;
 
 let intervalRunner;
-// let prior = dunif;
+let proposalWidth = 2;
+let curData;
+let curMean1;
+let curMean2;
+
 dataGenPlot({
   divId: 'data_plot',
   onNewData: (data, mean1, mean2) => {
+    curData = data;
+    curMean1 = mean1;
+    curMean2 = mean2;
     clearInterval(intervalRunner);
-    intervalRunner = startMCMC({data, mean1, mean2, prior, intervalRunner});
+    intervalRunner = startMCMC({
+      data: curData,
+      mean1: curMean1,
+      mean2: curMean2,
+      prior,
+      intervalRunner,
+      proposalWidth,
+    });
+  },
+  onNewPropWidth: (newWidth) => {
+    clearInterval(intervalRunner);
+    proposalWidth = newWidth;
+    intervalRunner = startMCMC({
+      data: curData,
+      mean1: curMean1,
+      mean2: curMean2,
+      prior,
+      intervalRunner,
+      proposalWidth,
+    });
   },
 });
 priorChoose();

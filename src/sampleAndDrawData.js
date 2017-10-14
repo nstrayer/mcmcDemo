@@ -41,12 +41,12 @@ export default curry(
       .merge(bar);
 
     enterUpdateBars
-      .transition(d3.transition('moveBarsOver').duration(500))
+      // .transition(d3.transition('moveBarsOver').duration(500))
       .translate((d) => [c.x(d.x0), 0]);
 
     enterUpdateBars
       .selectAppend('rect')
-      .transition(d3.transition('moveBarsUp').duration(500))
+      .transition(d3.transition('moveBarsUp').duration(1500))
       .at({
         x: -barWidth / 2,
         y: (d) => -c.y(d.length / maxBin),

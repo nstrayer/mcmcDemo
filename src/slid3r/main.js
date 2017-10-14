@@ -36,7 +36,7 @@ function slid3r() {
     const getValue = (eventX) => xScale.invert(eventX);
     
     const slider = sel
-      .attr("class", "slider")
+      // .attr("class", "slider")
       .attr("transform", `translate(${xPos}, ${yPos})`);
     
     if(vertical){

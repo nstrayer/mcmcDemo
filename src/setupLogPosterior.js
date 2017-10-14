@@ -1,5 +1,4 @@
-import {dnorm, scale, vadd, log} from 'statdists';
-import {sum} from './arrayHelpers';
+import {dnorm, scale, vadd, log, sum} from 'statdists';
 import {curry} from 'lodash';
 import {stdDev} from './plotDefaults';
 

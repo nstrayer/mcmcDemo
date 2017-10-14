@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -170,49 +170,107 @@ exports.default = function sourceRandomIrwinHall(source) {
 "use strict";
 
 
-var _rnorm = __webpack_require__(4);
+// @ts-check
+
+// Calculates the gamma function using the Anscoz approximation
+/**
+ * @param {number} x - Numeric vector
+ * @return {number} - Result of gamma(x)
+ */
+var gammaFunc = function gammaFunc(x) {
+  var p = [0.99999999999980993, 676.5203681218851, -1259.1392167224028, 771.32342877765313, -176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+
+  var g = 7;
+  if (x < 0.5) {
+    return Math.PI / (Math.sin(Math.PI * x) * gammaFunc(1 - x));
+  }
+
+  x -= 1;
+  var a = p[0];
+  var t = x + g + 0.5;
+  for (var i = 1; i < p.length; i++) {
+    a += p[i] / (x + i);
+  }
+
+  return Math.sqrt(2 * Math.PI) * Math.pow(t, x + 0.5) * Math.exp(-t) * a;
+};
+
+module.exports = gammaFunc;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _rnorm = __webpack_require__(5);
 
 var _rnorm2 = _interopRequireDefault(_rnorm);
 
-var _dnorm = __webpack_require__(10);
+var _dnorm = __webpack_require__(11);
 
 var _dnorm2 = _interopRequireDefault(_dnorm);
 
-var _dunif = __webpack_require__(12);
+var _dunif = __webpack_require__(13);
 
 var _dunif2 = _interopRequireDefault(_dunif);
 
-var _runif = __webpack_require__(13);
+var _runif = __webpack_require__(14);
 
 var _runif2 = _interopRequireDefault(_runif);
 
-var _mean = __webpack_require__(14);
+var _mean = __webpack_require__(15);
 
 var _mean2 = _interopRequireDefault(_mean);
 
-var _max = __webpack_require__(15);
+var _max = __webpack_require__(16);
 
 var _max2 = _interopRequireDefault(_max);
 
-var _min = __webpack_require__(16);
+var _min = __webpack_require__(17);
 
 var _min2 = _interopRequireDefault(_min);
 
-var _scale = __webpack_require__(17);
+var _scale = __webpack_require__(18);
 
 var _scale2 = _interopRequireDefault(_scale);
 
-var _vadd = __webpack_require__(18);
+var _vadd = __webpack_require__(19);
 
 var _vadd2 = _interopRequireDefault(_vadd);
 
-var _vsub = __webpack_require__(19);
+var _vsub = __webpack_require__(20);
 
 var _vsub2 = _interopRequireDefault(_vsub);
 
-var _log = __webpack_require__(20);
+var _log = __webpack_require__(21);
 
 var _log2 = _interopRequireDefault(_log);
+
+var _sum = __webpack_require__(22);
+
+var _sum2 = _interopRequireDefault(_sum);
+
+var _emptyArr = __webpack_require__(23);
+
+var _emptyArr2 = _interopRequireDefault(_emptyArr);
+
+var _gammaFunc = __webpack_require__(3);
+
+var _gammaFunc2 = _interopRequireDefault(_gammaFunc);
+
+var _betaFunc = __webpack_require__(24);
+
+var _betaFunc2 = _interopRequireDefault(_betaFunc);
+
+var _factorial = __webpack_require__(25);
+
+var _factorial2 = _interopRequireDefault(_factorial);
+
+var _within = __webpack_require__(26);
+
+var _within2 = _interopRequireDefault(_within);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -227,11 +285,17 @@ module.exports = {
   scale: _scale2.default,
   vadd: _vadd2.default,
   vsub: _vsub2.default,
-  log: _log2.default
+  log: _log2.default,
+  sum: _sum2.default,
+  emptyArr: _emptyArr2.default,
+  gammaFunc: _gammaFunc2.default,
+  betaFunc: _betaFunc2.default,
+  factorial: _factorial2.default,
+  within: _within2.default
 };
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -241,7 +305,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _d3Random = __webpack_require__(5);
+var _d3Random = __webpack_require__(6);
 
 // Generates n normal values
 exports.default = function () {
@@ -256,7 +320,7 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -266,7 +330,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _uniform = __webpack_require__(6);
+var _uniform = __webpack_require__(7);
 
 Object.defineProperty(exports, "randomUniform", {
   enumerable: true,
@@ -284,7 +348,7 @@ Object.defineProperty(exports, "randomNormal", {
   }
 });
 
-var _logNormal = __webpack_require__(7);
+var _logNormal = __webpack_require__(8);
 
 Object.defineProperty(exports, "randomLogNormal", {
   enumerable: true,
@@ -293,7 +357,7 @@ Object.defineProperty(exports, "randomLogNormal", {
   }
 });
 
-var _bates = __webpack_require__(8);
+var _bates = __webpack_require__(9);
 
 Object.defineProperty(exports, "randomBates", {
   enumerable: true,
@@ -311,7 +375,7 @@ Object.defineProperty(exports, "randomIrwinHall", {
   }
 });
 
-var _exponential = __webpack_require__(9);
+var _exponential = __webpack_require__(10);
 
 Object.defineProperty(exports, "randomExponential", {
   enumerable: true,
@@ -323,7 +387,7 @@ Object.defineProperty(exports, "randomExponential", {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -355,7 +419,7 @@ exports.default = function sourceRandomUniform(source) {
 }(_defaultSource2.default);
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -389,7 +453,7 @@ exports.default = function sourceRandomLogNormal(source) {
 }(_defaultSource2.default);
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -423,7 +487,7 @@ exports.default = function sourceRandomBates(source) {
 }(_defaultSource2.default);
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -452,7 +516,7 @@ exports.default = function sourceRandomExponential(source) {
 }(_defaultSource2.default);
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -462,7 +526,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _normPdf = __webpack_require__(11);
+var _normPdf = __webpack_require__(12);
 
 var _normPdf2 = _interopRequireDefault(_normPdf);
 
@@ -479,7 +543,7 @@ exports.default = function (x) {
 };
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -499,7 +563,7 @@ exports.default = function (x, mu, sigma) {
 };
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -523,7 +587,7 @@ exports.default = function (vals) {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -559,7 +623,7 @@ exports.default = function () {
  */
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -577,7 +641,7 @@ exports.default = function (vals) {
 };
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -600,7 +664,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  */
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -623,7 +687,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  */
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -640,7 +704,7 @@ exports.default = function (vec, scaler) {
 };
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -657,7 +721,7 @@ exports.default = function (vec1, vec2) {
 };
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -674,7 +738,7 @@ exports.default = function (vec1, vec2) {
 };
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -701,6 +765,106 @@ var isArray = Array.isArray;
  */
 
 ;
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (vec) {
+  return vec.reduce(function (s, d) {
+    return s + d;
+  }, 0);
+};
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (n) {
+  var fill = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+  return Array.from(new Array(n), function () {
+    return fill;
+  });
+};
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (alpha, beta) {
+  return (0, _gammaFunc2.default)(alpha) * (0, _gammaFunc2.default)(beta) / (0, _gammaFunc2.default)(alpha + beta);
+};
+
+var _gammaFunc = __webpack_require__(3);
+
+var _gammaFunc2 = _interopRequireDefault(_gammaFunc);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (x) {
+  return x == 0 ? 1 : Array.from(new Array(x - 1), function (d, i) {
+    return i + 1;
+  }).reduce(function (prod, j) {
+    return prod * (x - j);
+  }, x);
+};
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+// @ts-check
+
+// Logical check for if a value is within (a, b). Inclusive so 2 not between 2 and 3.
+/**
+ * @param {number} x - Number
+ * @param {number} a - Lower bounds
+ * @param {number} b - Upper bounds
+ * @return {boolean} - If x is between a and b.
+ */
+exports.default = function (x, a, b) {
+  return x > a && x < b;
+};
 
 /***/ })
 /******/ ]);
